@@ -1,7 +1,7 @@
 import {test,expect,type Page} from '@playwright/test';
 import {mkdirSync} from 'node:fs';
 
-const sizes=[{width:1920,height:1080},{width:1440,height:900},{width:1280,height:800},{width:1024,height:768},{width:768,height:1024},{width:430,height:932},{width:390,height:844},{width:375,height:812}];
+const sizes=[{width:1920,height:1080},{width:1920,height:900},{width:1440,height:900},{width:1280,height:800},{width:1024,height:768},{width:768,height:1024},{width:430,height:932},{width:390,height:844},{width:375,height:812}];
 const titles=['CONTACT','PRE-PRODUCTION','PRODUCTION','POST-PRODUCTION'];
 async function scrollStep(page:Page,index:number){
   await page.evaluate(index=>{
@@ -30,6 +30,14 @@ for(const size of sizes){test(`PROCESS scroll ${size.width}x${size.height}`,asyn
     await expect(panel.locator('h3')).toHaveText(titles[index]);
     const title=panel.locator('h3');
     expect(await title.evaluate(element=>element.scrollWidth<=element.clientWidth+1)).toBe(true);
+    const description=await panel.locator('p').boundingBox();
+    const copyArea=await page.locator('.process-copy').boundingBox();
+    const descriptionBottom=description!.y+description!.height;
+    expect(descriptionBottom).toBeLessThanOrEqual(copyArea!.y+copyArea!.height+1);
+    if(size.width>=901){
+      const list=await page.locator('.process-steps-desktop').boundingBox();
+      expect(list!.y-descriptionBottom).toBeGreaterThanOrEqual(20);
+    }else expect(frame!.y-descriptionBottom).toBeGreaterThanOrEqual(4);
     const navigation=page.locator(size.width<901?'.process-steps-mobile':'.process-steps-desktop');
     await expect(navigation.locator('[aria-current=step]')).toContainText(String(index+1).padStart(2,'0'));
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -45,7 +53,7 @@ for(const size of sizes){test(`PROCESS scroll ${size.width}x${size.height}`,asyn
       const copy=await panel.boundingBox();
       expect(copy!.y+copy!.height).toBeLessThanOrEqual(frame!.y+1);
     }else await expect(page.locator('.sidebar nav a.active')).toContainText('HOME');
-    if(index===0||size.width===390){
+    if(index===0||index===3||size.width===390){
       mkdirSync('verification/process',{recursive:true});
       // Motion reduction makes the screenshot represent the settled state without timing assumptions.
       await page.emulateMedia({reducedMotion:'reduce'});
