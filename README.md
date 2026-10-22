@@ -33,6 +33,11 @@ npm run build
 - `src/data/projects.ts`: 검증된 프로젝트 데이터. 현재 실제 프로젝트 배열은 비어 있습니다.
 - `public/assets/logo.png`, `halftone.png`: 원본의 바이트 단위 복사본.
 - `hero-poster.jpg`, `hero-mobile.jpg`: 제공 시안에서 UI를 제외한 사진 영역을 자른 임시 포스터. 실제 제작 영상 또는 실적이 아닙니다.
+- `src/components/HomeWorks.tsx`, `src/styles/homeWorks.css`: HOME 두 번째 WORKS 전용 컴포넌트와 스타일. 데스크톱 3열, 태블릿·모바일 2열, 모든 썸네일 16:9입니다.
+- `src/data/homeWorks.ts`: HOME 대표 작품 선택과 검토용 샘플 6개. 검증된 featured 프로젝트가 있으면 order 순으로 최대 6개를 표시하고, 없으면 레퍼런스 샘플을 표시합니다. 샘플은 실제 WORKS 목록에 등록하지 않습니다.
+- `public/assets/work-reference-*.jpg`: 사용자가 제공한 WORKS 레퍼런스에서 사진 영역만 추출한 검토용 썸네일입니다. 실적이나 원본 미디어로 확인된 자료가 아닙니다.
+
+HOME 카드의 실제 호버 영상은 `previewVideo`에 연결합니다. mouse + hover/fine pointer일 때만 지연 로드하고, 음소거·반복·인라인 재생합니다. 이탈 시 즉시 정지·0초 초기화, 다른 카드 활성화·화면 밖·탭 숨김·언마운트에서도 정지합니다. reduced motion과 터치 장치에서는 자동 미리보기를 시작하지 않습니다. 현재 실제 previewVideo는 미제공입니다. 테스트는 네트워크 응답을 테스트에서만 교체하여 테스트 전용 패턴 WebM으로 재생 동작을 확인하며, 이 영상은 배포 파일에 포함하지 않습니다.
 
 `desktopVideo`와 `mobileVideo`에 URL을 설정하면 영상 컴포넌트가 활성화됩니다. 소리·일시정지 컨트롤은 실제 video 요소와 연결되어 있습니다. 영상 소스가 없는 현재 버전은 포스터만 표시합니다. 재생 실패 시에도 포스터를 유지합니다.
 
@@ -65,4 +70,6 @@ dist/                     프로덕션 출력물
 
 ## 운영 전 확인
 
-실제 대표 영상, 원본 포스터, 프로젝트 사진·영상·설명·클라이언트 공개 승인, 협업사 로고, 연락처, SNS URL, 문의 서버, 개인정보 정책이 필요합니다. HOME 히어로 외 디자인은 제안안입니다. 검색 수집을 위해 6개 정적 HTML을 생성하며 `/works/layout-preview`는 noindex 및 sitemap 제외입니다. 동적 미등록 slug는 404 UI를 표시하나 SPA fallback 호스트에서는 HTTP 200일 수 있습니다. 운영 호스트에서 정확한 HTTP 404 응답 규칙을 적용해야 합니다.
+실제 대표 영상, 원본 포스터, 프로젝트 사진·영상·설명·클라이언트 공개 승인, 협업사 로고, 연락처, SNS URL, 문의 서버, 개인정보 정책이 필요합니다. HOME 히어로 외 디자인은 제안안입니다. 검색 수집을 위해 12개 정적 HTML을 생성하며 `/works/layout-preview`는 noindex 및 sitemap 제외입니다. 동적 미등록 slug는 404 UI를 표시하나 SPA fallback 호스트에서는 HTTP 200일 수 있습니다. 운영 호스트에서 정확한 HTTP 404 응답 규칙을 적용해야 합니다.
+
+
