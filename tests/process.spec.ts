@@ -68,7 +68,7 @@ for(const size of sizes){test(`PROCESS scroll ${size.width}x${size.height}`,asyn
   });
   await expect.poll(async()=> (await page.locator('.process-stage').boundingBox())!.y).toBeLessThan(0);
   await expect.poll(()=>page.evaluate(()=>document.body.classList.contains('process-header-pinned'))).toBe(false);
-  expect((await page.locator('.clients').boundingBox())!.y).toBeLessThan(size.height);
+  expect((await page.locator('footer').boundingBox())!.y).toBeLessThan(size.height);
   expect(errors).toEqual([]);
 });}
 
@@ -85,4 +85,5 @@ test('단계 버튼 키보드 이동, reduced motion, 이미지 실패 fallback'
   await page.locator('.sidebar').getByRole('link',{name:'03 ABOUT'}).click();
   await expect(page).toHaveURL(/\/about$/);expect(await page.evaluate(()=>document.body.classList.contains('process-header-pinned'))).toBe(false);
 });
+
 
