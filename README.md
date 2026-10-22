@@ -1,5 +1,9 @@
 # VIDEO SHOP
 
+HOME 순서는 HERO → WORKS → PROCESS → CONTACT → 푸터입니다. 네 번째 문의 섹션은 `HomeContactSection.tsx`·`ContactForm.tsx`·`ContactCalendar.tsx`·`homeContact.css`로 구성하며, 기존 `/contact` 페이지와 분리했습니다. `contactOptions.ts`에서 유형·예산·이미지를 관리합니다. 달력은 데스크톱 왼쪽의 고정 공간으로 portal 렌더링하고 1024px 미만에서는 날짜 필드 아래에 인라인으로 펼칩니다.
+
+HOME 문의는 `contactSubmission.ts`의 연결 전 adapter를 사용하며 현재 외부 전송이나 서버 저장을 하지 않습니다. 실제 API 연결 전까지 접수 성공을 표시하지 않습니다. 유효한 입력도 '전송되지 않았습니다'로 안내하고 보존합니다. 운영 API를 연결할 때 서버 검증·스팸 방지·개인정보 정책 및 보유 기간을 확정해야 합니다.
+
 React + TypeScript + Vite로 구현한 비디오샵 반응형 사이트 검토본입니다.
 
 ## 실행
