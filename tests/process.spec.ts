@@ -40,8 +40,8 @@ for(const size of sizes){test(`PROCESS scroll ${size.width}x${size.height}`,asyn
     if(size.width<768){
       await expect(page.locator('.mobile-header')).toHaveCSS('position','fixed');
       const header=await page.locator('.mobile-header').boundingBox();
-      const kicker=await page.locator('.process-section-index').boundingBox();
-      expect(header!.y+header!.height).toBeLessThanOrEqual(kicker!.y+1);
+      const heading=await page.locator('#process-heading').boundingBox();
+      expect(header!.y+header!.height).toBeLessThanOrEqual(heading!.y+1);
       const copy=await panel.boundingBox();
       expect(copy!.y+copy!.height).toBeLessThanOrEqual(frame!.y+1);
     }else await expect(page.locator('.sidebar nav a.active')).toContainText('HOME');

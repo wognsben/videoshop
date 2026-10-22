@@ -72,7 +72,6 @@ export default function ProcessSection(){
 
   return <section id="process" ref={section} className="process-section" aria-labelledby="process-heading" data-step={active+1}>
     <div ref={stage} className="process-stage">
-      <div className="process-section-index"><span>03</span><span>/ 04</span><i/></div>
       <div className="process-layout">
         <div className="process-text">
           <h2 id="process-heading">PROCESS</h2>
