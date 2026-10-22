@@ -74,10 +74,14 @@ dist/                     프로덕션 출력물
 
 `src/components/ProcessSection.tsx`, `src/styles/process.css`, `src/data/process.ts`가 HOME 세 번째 섹션을 구성합니다. 500svh 구간에서 100svh 화면을 sticky로 고정하고 네 단계로 진행합니다. 하나의 SVG clipPath를 사진 레이어 공통 부모에 적용하며, 사진과 텍스트만 크로스페이드합니다. 휠·터치 이벤트를 가로채지 않습니다. 단계 버튼으로도 이동할 수 있습니다.
 
-`public/assets/process-contact.jpg`, `process-pre-production.jpg`, `process-production.jpg`, `process-post-production.jpg`는 AI 제작 설명용 이미지입니다. 실제 VIDEO SHOP 현장 사진이 아니며 화면과 alt에 표시했습니다. 사진을 교체하려면 `src/data/process.ts`의 image·alt·desktopObjectPosition·mobileObjectPosition·objectScale·overlayOpacity를 변경합니다. 생성 프롬프트는 `PROCESS-IMAGE-PROMPTS.md`에 기록했습니다.
+`public/assets/process-contact-provided.png`, `process-pre-production-provided.png`, `process-production-provided.png`, `process-post-production-provided.png`는 AI 제작 설명용 이미지입니다. 실제 VIDEO SHOP 현장 사진이 아니며 화면과 alt에 표시했습니다. 사진을 교체하려면 `src/data/process.ts`의 image·alt·desktopObjectPosition·mobileObjectPosition·objectScale·overlayOpacity를 변경합니다. 생성 프롬프트는 `PROCESS-IMAGE-PROMPTS.md`에 기록했습니다.
 
 기존 모바일 헤더를 중복 렌더링하지 않고, PROCESS 고정 구간에서만 전용 body 클래스와 PROCESS CSS로 같은 헤더의 위치를 fixed로 지정합니다. 고정 종료 및 페이지 이동 시 클래스를 해제합니다. HERO·WORKS·기존 레이아웃 컴포넌트와 글로벌 CSS는 수정하지 않았습니다.
 
 실제 대표 영상, 원본 포스터, 프로젝트 사진·영상·설명·클라이언트 공개 승인, 협업사 로고, 연락처, SNS URL, 문의 서버, 개인정보 정책이 필요합니다. HOME 히어로 외 디자인은 제안안입니다. 검색 수집을 위해 12개 정적 HTML을 생성하며 `/works/layout-preview`는 noindex 및 sitemap 제외입니다. 동적 미등록 slug는 404 UI를 표시하나 SPA fallback 호스트에서는 HTTP 200일 수 있습니다. 운영 호스트에서 정확한 HTTP 404 응답 규칙을 적용해야 합니다.
 
+
+
+
+현재 PROCESS 이미지는 사용자가 지정한 폴더의 PROCESS 1~4 원본 PNG 복사본입니다. 1=CONTACT, 2=PRE-PRODUCTION, 3=PRODUCTION, 4=POST-PRODUCTION 순서로 적용했습니다. 기존 JPEG는 보존하되 현재 데이터에서 참조하지 않습니다.
 

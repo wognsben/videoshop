@@ -73,15 +73,16 @@ for(const size of sizes){test(`PROCESS scroll ${size.width}x${size.height}`,asyn
 });}
 
 test('단계 버튼 키보드 이동, reduced motion, 이미지 실패 fallback',async({page})=>{
-  await page.route('**/assets/process-production.jpg',route=>route.fulfill({status:404}));
+  await page.route('**/assets/process-production-provided.png',route=>route.fulfill({status:404}));
   await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:1440,height:900});await page.goto('/');
   await scrollStep(page,1);
-  await expect(page.locator('.process-image-layer.is-visible img')).toHaveAttribute('src','/assets/process-pre-production.jpg');
+  await expect(page.locator('.process-image-layer.is-visible img')).toHaveAttribute('src','/assets/process-pre-production-provided.png');
   await scrollStep(page,2);
-  await expect(page.locator('.process-image-layer.is-visible img')).toHaveAttribute('src','/assets/process-pre-production.jpg');
+  await expect(page.locator('.process-image-layer.is-visible img')).toHaveAttribute('src','/assets/process-pre-production-provided.png');
   expect(await page.locator('.process-image-layer').first().evaluate(element=>getComputedStyle(element).transitionDuration)).toBe('0s');
   const button=page.locator('.process-steps-desktop button').last();await button.focus();await page.keyboard.press('Enter');
   await expect(page.locator('.process-section')).toHaveAttribute('data-step','4');await expect(button).toBeFocused();
   await page.locator('.sidebar').getByRole('link',{name:'03 ABOUT'}).click();
   await expect(page).toHaveURL(/\/about$/);expect(await page.evaluate(()=>document.body.classList.contains('process-header-pinned'))).toBe(false);
 });
+
